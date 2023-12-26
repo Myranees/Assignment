@@ -41,7 +41,10 @@ public class TestMain{
         System.out.println("\t\t\t *** Scheduling System C- Stack ***");
         System.out.println("Scheduling System C results: ");
         systemC.executeTasks();
-        
+//        System.out.println("StartTime: "+systemC.startTimer() +" nanoseconds");
+//        System.out.println("StopTimer: " +systemC.stopTimer() +" nanoseconds");
+//        System.out.println("Time taken by Scheduler C: "+systemC.getElapsedTime()+" nanoseconds ");
+        System.out.println();
         sc.close();
     }
     

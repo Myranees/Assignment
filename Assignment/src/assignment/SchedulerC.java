@@ -63,6 +63,18 @@ public class SchedulerC{
     Stack<Task> stack = new Stack<>();
     private int totalTime =0;
     int numberOftasks =0;
+//    private long startTime;
+//    private long endTime;
+//    
+//    public long startTimer(){
+//      return startTime = System.nanoTime();
+//    }
+//    public long stopTimer(){
+//      return endTime=System.nanoTime();
+//    }
+//    public long getElapsedTime(){
+//        return endTime-startTime;
+//    }
     
     public void addTask(Task task){
         stack.push(task);
@@ -70,17 +82,17 @@ public class SchedulerC{
     }
     
     public void executeTasks() {
-        int totalResponseTime = 0;
-        int totalTurnaroundTime = 0;
-        
+        long totalResponseTime = 0;
+        long totalTurnaroundTime = 0;
+        long startTime = System.nanoTime();
 
         while (!stack.isEmpty()) {
             Task task = stack.pop();
-            int responseTime = totalTime;
-            int executionTime = (int) StarterPack.executeTask(task);
+            long responseTime = System.nanoTime()-startTime;
+            long executionTime = StarterPack.executeTask(task);
             totalTime += executionTime;
 
-            int turnaroundTime = totalTime;
+            long turnaroundTime = System.nanoTime()-startTime;
 
             totalResponseTime += responseTime;
             totalTurnaroundTime += turnaroundTime;
@@ -89,19 +101,21 @@ public class SchedulerC{
           System.out.printf("Task: %-20s Response Time: %-10d Turnaround Time: %-10d%n",
         task.getMethodName(), responseTime, turnaroundTime);
         }
+        long endTime =System.nanoTime();
         System.out.println("Number of Task: "+numberOftasks);
-        System.out.println("Total Response Time: "+totalResponseTime);
-        System.out.println("Total Turnaround Time: "+totalTurnaroundTime);
+        System.out.println("Total Response Time: "+totalResponseTime +" nanoseconds");
+        System.out.println("Total Turnaround Time: "+totalTurnaroundTime+" nanoseconds");
         
         // Calculate and print average response time and turnaround time
         if(numberOftasks>0){
-        int averageResponseTime = totalResponseTime / numberOftasks;
-        int averageTurnaroundTime = totalTurnaroundTime /numberOftasks;
-        System.out.println("Average Response Time: " + averageResponseTime);
-        System.out.println("Average Turnaround Time: " + averageTurnaroundTime);
+        long averageResponseTime = totalResponseTime / numberOftasks;
+        long averageTurnaroundTime = totalTurnaroundTime /numberOftasks;
+        System.out.println("Average Response Time: " + averageResponseTime +" nanoseconds");
+        System.out.println("Average Turnaround Time: " + averageTurnaroundTime+" nanoseconds");
     }else{
             System.out.println("No tasks to calculate average");
         }
+        System.out.println("Time taken by Scheduler C: "+(endTime-startTime)+" nanoseconds");
 }
 }
 
